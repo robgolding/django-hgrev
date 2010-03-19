@@ -1,0 +1,3 @@
+syntax: glob
+*.pyc
+django_hgrev.egg-info

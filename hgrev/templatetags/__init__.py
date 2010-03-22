@@ -1,12 +1,14 @@
 from hgrev import settings
 
 def get_revision():
-	from mercurial import ui, hg
+	try:
+		from mercurial import ui, hg
 	
-	repo = hg.repository(ui.ui(), settings.HGREV_HG_PATH)
+		repo = hg.repository(ui.ui(), settings.HGREV_HG_PATH)
+		fctx = repo.filectx(None, 'tip')
 	
-	fctx = repo.filectx(None, 'tip')
-	
-	return 'r%d:%s' % (fctx.rev(), fctx.hex()[:4])
+		return 'r%d:%s' % (fctx.rev(), fctx.hex()[:4])
+	except Exception:
+		return "unavailable"
 
 REVISION = get_revision()
